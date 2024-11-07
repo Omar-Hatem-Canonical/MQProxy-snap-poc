@@ -1,0 +1,30 @@
+#!/bin/sh -e
+
+ENV_FILE="${SNAP_COMMON}/etc/.env"
+
+# defaults
+DEFAULT_WITHOUT_TLS_ADDRESS=":1884"
+DEFAULT_WITHOUT_TLS_TARGET="localhost:1883"
+
+# snapctl values
+without_tls_address=$(snapctl get without.address)
+without_tls_target=$(snapctl get without.target)
+
+# set defaults
+if [ -z "$without_tls_address" ]; then
+    without_tls_address=$DEFAULT_WITHOUT_TLS_ADDRESS
+fi
+
+if [ -z "$without_tls_target" ]; then
+    without_tls_target=$DEFAULT_WITHOUT_TLS_TARGET
+fi
+
+# write to the .env file
+cat  > "$ENV_FILE" << EOF
+MPROXY_MQTT_WITHOUT_TLS_ADDRESS = "$without_tls_address"
+MPROXY_MQTT_WITHOUT_TLS_TARGET = "$without_tls_target"
+EOF
+
+# restart services
+# commented as we don't have any services yet
+# snapctl restart mqproxy

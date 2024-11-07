@@ -11,36 +11,33 @@ description: |
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict # use 'strict' once you have the right plugs and slots
 
-# layout:
-#   /home/$USER/
+layout:
+  /etc/.env:
+    bind-file: $SNAP_COMMON/etc/.env
 
 parts:
   mproxy:
     plugin: go
-    # source-type: git
-    # source: https://github.com/absmach/mproxy
-    source-type: local
-    source: mproxy_forked/mproxy
+    source-type: git
+    source: https://github.com/Omar-Hatem-Canonical/mproxy
     build-snaps: [go/latest/stable]
-
 
 apps:
   mqproxy:
-    command: bin/cmd
-    plugs: 
+    command: bin/cmd --env /etc/.env
+    plugs:
       - network
       - network-bind
       - home
   http:
     command: bin/http-echo
-    plugs: 
+    plugs:
       - network
       - network-bind
       - home
   ocsp:
     command: bin/ocsp-crl-responder
-    plugs: 
+    plugs:
       - network
       - network-bind
       - home
-  
