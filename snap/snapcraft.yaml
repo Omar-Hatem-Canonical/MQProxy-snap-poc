@@ -14,6 +14,8 @@ confinement: strict # use 'strict' once you have the right plugs and slots
 layout:
   /etc/.env:
     bind-file: $SNAP_COMMON/etc/.env
+  /etc/mssl:
+    symlink: $SNAP_COMMON/ssl
 
 parts:
   mproxy:
@@ -21,6 +23,11 @@ parts:
     source-type: git
     source: https://github.com/Omar-Hatem-Canonical/mproxy
     build-snaps: [go/latest/stable]
+    override-prime: |
+      craftctl default
+      cp -r $HOME/parts/mproxy/src/ssl $SNAP_COMMON/
+
+
 
 apps:
   mqproxy:
