@@ -21,9 +21,6 @@ parts:
     source-type: git
     source: https://github.com/Omar-Hatem-Canonical/mproxy
     build-snaps: [go/latest/stable]
-    override-prime: |
-      craftctl default
-      cp -r $HOME/parts/mproxy/src/ssl $SNAP_COMMON/
 
 
 
