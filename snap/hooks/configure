@@ -13,7 +13,7 @@ def _snapctl(action, setting):
     return snapctl.stdout
 
 def set_defaults(config_var, config_val):
-   if not config_var:
+   if not config_var or config_var == "\n":
         return config_val
    else:
        return config_var
@@ -28,16 +28,16 @@ DEFAULT_WITHOUT_TLS_TARGET="localhost:1883"
 
 DEFAULT_WITH_TLS_ADDRESS=":8883"
 DEFAULT_WITH_TLS_TARGET="localhost:1883"
-DEFAULT_WITH_TLS_CERT_FILE="etc/mssl/certs/server.crt"
-DEFAULT_WITH_TLS_KEY_FILE="etc/mssl/certs/server.key"
-DEFAULT_WITH_TLS_SERVER_CA_FILE="mssl/certs/ca.crt"
+DEFAULT_WITH_TLS_CERT_FILE="/home/omar/go_snap/snap/mproxy/ssl/certs/server.crt"
+DEFAULT_WITH_TLS_KEY_FILE="/home/omar/go_snap/snap/mproxy/ssl/certs/server.key"
+DEFAULT_WITH_TLS_SERVER_CA_FILE="/home/omar/go_snap/snap/mproxy/ssl/certs/ca.crt"
 
 DEFAULT_WITH_MTLS_ADDRESS=":8884"
 DEFAULT_WITH_MTLS_TARGET="localhost:1883"
-DEFAULT_WITH_MTLS_CERT_FILE="etc/mssl/certs/server.crt"
-DEFAULT_WITH_MTLS_KEY_FILE="etc/mssl/certs/server.key"
-DEFAULT_WITH_MTLS_SERVER_CA_FILE="etc/mssl/certs/ca.crt"
-DEFAULT_WITH_MTLS_CLIENT_CA_FILE="etc/mssl/certs/ca.crt"
+DEFAULT_WITH_MTLS_CERT_FILE="/home/omar/go_snap/snap/mproxy/ssl/certs/server.crt"
+DEFAULT_WITH_MTLS_KEY_FILE="/home/omar/go_snap/snap/mproxy/ssl/certs/server.key"
+DEFAULT_WITH_MTLS_SERVER_CA_FILE="/home/omar/go_snap/snap/mproxy/ssl/certs/ca.crt"
+DEFAULT_WITH_MTLS_CLIENT_CA_FILE="/home/omar/go_snap/snap/mproxy/ssl/certs/ca.crt"
 DEFAULT_WITH_MTLS_CERT_VERIFICATION_METHODS="ocsp"
 DEFAULT_WITH_MTLS_OCSP_RESPONDER_URL="http://localhost:8080/ocsp"
 
@@ -80,23 +80,22 @@ with_mtls_client_ca_file=set_defaults(with_mtls_client_ca_file, DEFAULT_WITH_MTL
 with_mtls_cert_verification_methods=set_defaults(with_mtls_cert_verification_methods, DEFAULT_WITH_MTLS_CERT_VERIFICATION_METHODS)
 with_mtls_ocsp_responder_url=set_defaults(with_mtls_ocsp_responder_url, DEFAULT_WITH_MTLS_OCSP_RESPONDER_URL)
 
-print(without_tls_address)
 
 with open(ENV_FILE, 'w') as writer:
-    writer.write(f"MPROXY_MQTT_WITHOUT_TLS_ADDRESS = {without_tls_address}")
-    writer.write(f"MPROXY_MQTT_WITHOUT_TLS_TARGET = {without_tls_target}")
+    writer.write(f"MPROXY_MQTT_WITHOUT_TLS_ADDRESS=\"{without_tls_address}\"\n")
+    writer.write(f"MPROXY_MQTT_WITHOUT_TLS_TARGET=\"{without_tls_target}\"\n")
 
-    writer.write(f"MPROXY_MQTT_WITH_TLS_ADDRESS= {with_tls_address}")
-    writer.write(f"MPROXY_MQTT_WITH_TLS_TARGET= {with_tls_target}")
-    writer.write(f"MPROXY_MQTT_WITH_TLS_CERT_FILE= {with_tls_cert_file}")
-    writer.write(f"MPROXY_MQTT_WITH_TLS_KEY_FILE= {with_tls_key_file}")
-    writer.write(f"MPROXY_MQTT_WITH_TLS_SERVER_CA_FILE= {with_tls_server_ca_file}")
-    
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_ADDRESS= {with_mtls_address}")
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_TARGET= {with_mtls_target}")
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_CERT_FILE= {with_mtls_cert_file}")
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_KEY_FILE= {with_mtls_key_file}")
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_SERVER_CA_FILE= {with_mtls_server_ca_file}")
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_CLIENT_CA_FILE= {with_mtls_client_ca_file}")
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_CERT_VERIFICATION_METHODS= {with_mtls_cert_verification_methods}")
-    writer.write(f"MPROXY_MQTT_WITH_MTLS_OCSP_RESPONDER_URL= {with_mtls_ocsp_responder_url}")
+    writer.write(f"MPROXY_MQTT_WITH_TLS_ADDRESS=\"{with_tls_address}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_TLS_TARGET=\"{with_tls_target}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_TLS_CERT_FILE=\"{with_tls_cert_file}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_TLS_KEY_FILE=\"{with_tls_key_file}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_TLS_SERVER_CA_FILE=\"{with_tls_server_ca_file}\"\n")
+
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_ADDRESS=\"{with_mtls_address}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_TARGET=\"{with_mtls_target}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_CERT_FILE=\"{with_mtls_cert_file}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_KEY_FILE=\"{with_mtls_key_file}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_SERVER_CA_FILE=\"{with_mtls_server_ca_file}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_CLIENT_CA_FILE=\"{with_mtls_client_ca_file}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_CERT_VERIFICATION_METHODS=\"{with_mtls_cert_verification_methods}\"\n")
+    writer.write(f"MPROXY_MQTT_WITH_MTLS_OCSP_RESPONDER_URL=\"{with_mtls_ocsp_responder_url}\"\n")

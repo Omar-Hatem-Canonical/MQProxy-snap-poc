@@ -14,8 +14,6 @@ confinement: strict # use 'strict' once you have the right plugs and slots
 layout:
   /etc/.env:
     bind-file: $SNAP_COMMON/etc/.env
-  /etc/mssl:
-    symlink: $SNAP_COMMON/ssl
 
 parts:
   mproxy:
