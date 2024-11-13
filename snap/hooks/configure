@@ -99,3 +99,5 @@ with open(ENV_FILE, 'w') as writer:
     writer.write(f"MPROXY_MQTT_WITH_MTLS_CLIENT_CA_FILE=\"{with_mtls_client_ca_file}\"\n")
     writer.write(f"MPROXY_MQTT_WITH_MTLS_CERT_VERIFICATION_METHODS=\"{with_mtls_cert_verification_methods}\"\n")
     writer.write(f"MPROXY_MQTT_WITH_MTLS_OCSP_RESPONDER_URL=\"{with_mtls_ocsp_responder_url}\"\n")
+
+_snapctl("restart", "mqproxy")

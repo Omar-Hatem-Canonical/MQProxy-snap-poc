@@ -27,6 +27,7 @@ parts:
 apps:
   mqproxy:
     command: bin/cmd --env /etc/.env
+    daemon: simple
     plugs:
       - network
       - network-bind
